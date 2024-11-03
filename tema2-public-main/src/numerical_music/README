@@ -1,0 +1,197 @@
+####################################### TASK 1 #######################################
+
+### Compare(figura 1, figura 2)
+    -Primul spectrogram arată o gamă dinamică mai mare și variații, sugerând că 
+    capturează un semnal audio complex cu mai multe evenimente sonore. Al doilea 
+    spectrogram, cu modelul său repetitiv, reprezintă un sunet de toba loopat
+    la intervale regulate, iar in rest, spectrograma este goala.
+
+### Compare(figura 2, figura 3)
+    -Spectrograma originală (Plain Sound) arată un spectru complet al frecvențelor pe întreaga gamă, cu bare 
+    verticale clare care se întind de la frecvențele cele mai joase aproape de 0 Hz, pana la maxim.
+    Spectrograma cu filtru (Low Pass Sound) demonstrează o atenuare semnificativă a frecvențelor mai mari.
+    Regiunile superioare ale spectrogramei sunt vizibil mai întunecate, indicând reducerea sau absența componentelor 
+    de frecvențe înalte. Acest efect este rezultatul direct al filtrului low pass.
+
+    Plain Sound: Sunetul original menține claritatea în tranzițiile dintre barele verticale, reflectând schimbări bruște 
+    sau evenimente sonore distincte în frecvențele mai mari.
+    Low Pass Sound: În contrast, tranzițiile în spectrograma cu filtru pas-bandă par mai netede și mai puțin definite, 
+    mai ales în zonele de frecvențe mai mari.
+    Explicație tehnică:
+    Funcția de low pass filter implementata folosește Transformata Rapidă Fourier (FFT) pentru a converti semnalul 
+    din domeniul timpului în domeniul frecvenței. Apoi, se aplică o mască acestui spectru, anulând componentele deasupra 
+    unei anumite frecvențe de tăiere. Transformata inversă Fourier (IFFT) este apoi folosită pentru a converti spectrul 
+    modificat înapoi în domeniul timpului. Procesul de filtrare tinde să elimine componentele de frecvențe înalte, 
+    ducând la un sunet "mai neted" care este mai puțin aspru și conține mai puține componente de zgomot de frecvențe 
+    înalte, așa cum este evidențiat vizual în spectrogramă.
+
+### Compare(figura 2, figura 4)
+    -Spectrograma pentru plain sound (Figura 2):
+        Această spectrogramă arată linii verticale discrete și clare la intervale regulate.
+        Conținutul de frecvență al fiecărui burst pare destul de concentrat, cu răspândire minimă deasupra și dedesubtul 
+        benzilor principale de frecvență.
+        Nu există o amprentă vizibilă sau decădere urmând fiecare rafală, indicând faptul că sunetul este  neprocesat prin 
+        efecte precum reverb.
+    -Spectrograma pentru sunetul cu reverb (Figura 4):
+        Aici, liniile verticale corespunzătoare bursturilor de sunet sunt încă vizibile, dar sunt urmate 
+        de o decădere graduală.
+        Efectul de reverb creează o răspândire a frecvențelor sub și deasupra bursturilor originale, 
+        contribuind la un sunet mai bogat și mai plin care persistă în timp.
+        Această răspândire este indicativă pentru convoluția cu răspunsul impuls, unde semnalul original este 
+        suprapus cu multiple copii întârziate și atenuate ale acestuia, tipic pentru reverberație.
+
+    Diferențele dintre spectrograme sunt o vizualizare directă a modului în care reverb modifică caracteristicile 
+    de timp și frecvență ale sunetului, făcând semnalul mai bogat și mai complex pe măsură ce interacționează cu 
+    acustica simulată furnizată de răspunsul impuls.
+
+### Reverb comment
+
+    Conținutul de Frecvență:
+
+        Spectrograma prezentată în Figura 5 ilustrează rezultatul unei analize sonore utilizând o transformare Fourier, 
+        folosind Hanning și o transformare Fourier discretă pentru a genera o vizualizare a frecvenței în timp a semnalului.
+
+    Analiza Spectrogramei:
+
+        Decădere Energetică Graduală:
+
+            Spre deosebire de spectrograma "Plain Sound", se observă o decădere vizibilă  după fiecare explozie. 
+            Această decădere arată efectul persistent al energiei sonore în timp.
+
+    Analiza Funcției:
+
+        Aplicarea Hanning:
+
+            Fiecare segment al semnalului este înmulțit cu o fereastră Hanning pentru a minimiza scurgerile spectrale. 
+            Această tehnică netezește începutul și sfârșitul fiecărei ferestre, reducând discontinuitățile la granițe.
+
+        Transformarea Fourier:
+
+            O transformare Fourier este aplicată fiecărui segment, convertindu-l din domeniul timpului în domeniul 
+            frecvenței. Utilizarea FFT și limitarea output-ului la jumătate din dimensiunea ferestrei 
+            (window_size * 2 pentru calculul FFT, dar se utilizează doar window_size) se concentrează pe frecvențele 
+            pozitive, relevante pentru semnalele audio.
+
+
+### Spectrograma "Tech":
+- **Descriere Vizuală**: Această spectrogramă arată linii verticale bine definite, indicând caracteristicile sunetului la 
+intervale regulate, separate de secțiuni mai liniștite. Acest model este tipic pentru semnalele cu elemente periodice clare 
+și distincte, cum ar fi bip-uri sau alte sunete electronice similare.
+- **Explicație Tehnică**: Separarea clară între exploziile de sunet sugerează frecvențe minime suprapuse și o distribuție 
+strânsă a frecvențelor în fiecare explozie. Acest lucru ar putea indica un sunet cu conținut de frecvență foarte controlat.
+
+### Spectrograma "Low Pass Tech":
+- **Descriere Vizuală**: Comparativ cu spectrograma "Tech", versiunea "Low Pass Tech" arată o reducere a componentelor de 
+frecvență înaltă. Imaginea prezintă zone de frecvențe înalte mai întunecate (mai puțin intense), evidențiind efectul 
+filtrului low pass.
+- **Explicație Tehnică**: Filtrul low pass atenuează frecvențele deasupra unui anumit prag (1.000 Hz în acest caz). Aceasta 
+este evidentă din prezența diminuată a componentelor de frecvență înaltă, rezultând într-o aparență mai netedă a 
+spectrogramei. Acest tip de filtrare este folosit frecvent pentru a elimina zgomotul de frecvență înaltă sau pentru 
+a se concentra pe partea inferioară a spectrului de sunet pentru analiză sau îmbunătățirea efectelor.
+
+### Spectrograma "Reverb Tech":
+- **Descriere Vizuală**: Această spectrogramă este caracterizată printr-o „întindere” sau difuzare a liniilor verticale pe 
+axa timpului, indicând un efect de reverb. Persistența sunetului după explozia inițială este vizibilă ca o decădere 
+treptată, în loc de lipsa de sunet brusca între explozii.
+- **Explicație Tehnică**: Aplicarea reverb-ului introduce o decădere întârziată a sunetului, simulând efectul de sunet 
+care ricoșează pe suprafețe într-un mediu acustic reflectorizant. Acest lucru duce la o prezență mai prelungită a 
+frecvențelor sonore după exploziile inițiale, creând o experiență auditivă mai bogată și mai completă.
+
+### Spectrograma "Low Pass + Reverb Tech":
+- **Descriere Vizuală**: Această imagine arată o combinație a efectelor observate în spectrogramele "Low Pass Tech" și 
+"Reverb Tech". Reducerea frecvențelor de filtru low pass și întinderea temporală de la reverb sunt ambele evidente.
+- **Explicație Tehnică**: Combinarea filtrării low pass cu reverb creează un profil sonor unic, unde sunetele 
+reverberate sunt mai netede datorită absenței frecvențelor înalte. Acest lucru poate fi util în contexte unde se 
+dorește un sunet mai ambiental și mai puțin aspru, deoarece atenuează aglomerația de frecvențe înalte menținând în 
+același timp calitățile atmosferice ale reverb-ului.
+
+### Spectrograma "Reverb + Low Pass Tech":
+- **Descriere Vizuală**: Similară cu "Low Pass + Reverb Tech", dar secvența de procesare subliniaza aspecte 
+diferite. Efectul de reverb asupra sunetului poate fi mai pronunțat înainte de a fi filtrat de low pass, ceea ce poate 
+duce la diferențe subtile în caracteristicile decăderii.
+- **Explicație Tehnică**: Aplicarea reverberației înainte de filtrul low pass înseamnă că întregul semnal reverberat 
+(inclusiv frecvențele înalte inițial) este supus filtrării. Acest lucru ar putea duce la o textură ușor diferită, 
+deoarece frecvențele înalte sunt eliminate după ce au contribuit deja la efectul reverberat.
+
+
+####################################### TASK 2 #######################################
+
+### Interpolare Spline
+Graficul utilizează interpolarea Spline pentru a genera o traiectorie. Această metodă construiește un 
+polinom pe segmente care asigură continuitatea și netezimea la punctele de date.
+
+#### Caracteristici:
+1. **Polinoame pe Segmente**: Metoda Spline construiește polinoame de grad mai mic pentru fiecare interval între punctele 
+de date, asigurând o tranziție lină.
+2. **Netezime**: Acest grafic arată o traiectorie mult mai netedă, fără oscilații mari, indicând o gestionare mai bună a 
+interpolării.
+
+### Interpolare Vandermonde
+Graficul utilizează interpolarea Vandermonde pentru a genera o traiectorie. Această metodă construiește un 
+polinom care trece prin toate punctele de date date.
+
+#### Caracteristici:
+1. **Polinom de Grad Mare**: Metoda Vandermonde rezultă adesea într-un polinom de grad mare, ceea ce poate duce la 
+oscilații și variații mari ale ieșirii.
+2. **Supraîncadrare**: Acest grafic arată oscilații semnificative, în special către valorile mari ale lui `x`, indicând 
+o problemă de supraîncadrare.
+
+## Comparatie
+Interpolare Vandermonde: Deși asigură trecerea polinomului prin toate punctele de date, suferă de supraîncadrare și 
+oscilații mari, făcând-o mai puțin practică pentru traiectorii netede.
+Interpolare Spline: Oferă o metodă de interpolare netedă și practică, evitând capcanele polinoamelor de grad mare prin 
+utilizarea unor polinoame de grad mai mic pe segmente.
+
+####################################### TASK 3 #######################################
+
+### 1. cosine_similarity.m
+
+#### Scop:
+Această funcție calculează similitudinea cosinusului între doi vectori.
+
+#### Logică:
+- Normalizează vectorul `A` împărțindu-l la norma sa.
+- Normalizează vectorul `B` în mod similar.
+- Calculează produsul scalar al vectorilor normalizați pentru a obține cosine similarity.
+
+### 2. preprocess.m
+
+#### Scop:
+Această funcție preprocesează o matrice prin filtrarea rândurilor care nu îndeplinesc un număr minim de intrări 
+nenule (recenzii).
+
+#### Logică:
+- Folosește `arrayfun` pentru a itera peste fiecare rând al matricei.
+- Verifică dacă numărul de intrări nenule din rând este mai mare sau egal cu `min_reviews`.
+- Păstrează doar rândurile care satisfac această condiție.
+
+### 3. read_mat.m
+
+#### Scop:
+Această funcție citește o matrice dintr-un fișier CSV, începând de la al doilea rând și a doua coloană pentru a 
+sări peste anteturi.
+
+#### Logică:
+- Folosește `csvread` pentru a citi datele din fișierul CSV, începând de la al doilea rând și coloană.
+
+### 4. recommendations.m
+
+#### Scop:
+Această funcție generează recomandări de teme bazate pe o temă apreciată de utilizator, folosind cosine_similarity
+și Decompoziția Valorilor Singulare (SVD).
+
+#### Logică:
+- Citește matricea din fișierul CSV furnizat folosind `read_mat`.
+- Preprocesează matricea pentru a filtra rândurile cu recenzii insuficiente folosind `preprocess`.
+- Calculează SVD-ul redus al matricei pentru a obține matricile `U`, `S` și `V`.
+- Extrage vectorul corespunzător temei apreciate din `V`.
+- Calculează cosine_similarity a vectorului temei apreciate cu toți ceilalți vectori din `V`.
+- Sortează similitudinile în ordine descrescătoare și obține indicii celor mai recomandate teme, excluzând tema apreciată însăși.
+
+### Cum funcționează funcțiile împreună
+
+1. `read_mat.m` citește matricea de date dintr-un fișier CSV.
+2. `preprocess.m` filtrează matricea pentru a păstra doar rândurile cu un număr minim de recenzii.
+3. `cosine_similarity.m` calculează similitudinea cosinusului între vectori.
+4. `recommendations.m` utilizează funcțiile de mai sus pentru a preprocesa datele, a efectua SVD și a 
+genera recomandări bazate pe cosine_similarity.
